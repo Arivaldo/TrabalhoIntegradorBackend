@@ -1,13 +1,13 @@
 package com.ClinicaOdontologica.Clinica.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Date;
 @Entity
+@Table(name = "paciente")
+
 public class PacienteEntity {
     @Id
+    @SequenceGenerator(name = "paciente_sequence", sequenceName = "paciente_sequence")
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
 
     private int id;
@@ -15,6 +15,14 @@ public class PacienteEntity {
     private String sobrenome;
     private String rg;
     private Date dataAlta;
+
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "dentista_id")
+    private DentistaEntity dentistaEntity;
+
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "endereco_id")
+    private EnderecoEntity enderecoEntity;
 
     public PacienteEntity(int id, String nome, String sobrenome, String rg, Date dataAlta) {
         this.id = id;

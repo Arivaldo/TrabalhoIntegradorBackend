@@ -11,7 +11,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 @RestController
-@RequestMapping("/dentista")
+@RequestMapping(value = "/dentista",method = RequestMethod.GET,produces = "application/json")
 
 
 public class DentistaController {
@@ -19,12 +19,12 @@ public class DentistaController {
     @Autowired
     DentistaService service;
 
-    @PostMapping("/salvar")
+    @PostMapping("/dentista/salvar")
     public DentistaEntity salvar(@RequestBody DentistaEntity dentistaEntity) throws SQLException {
         return service.salvar(dentistaEntity);
     }
 
-    @GetMapping
+    @GetMapping("/dentista/{id}")
     public List<DentistaEntity> buscarTodos() throws SQLException {
         return service.buscarTodos();
     }
@@ -44,7 +44,7 @@ public class DentistaController {
         return responseEntity;
     }
 
-    @DeleteMapping
+    @DeleteMapping("/dentista/delete/{id}")
     public ResponseEntity excluir(@PathVariable Integer id) throws SQLException {
         ResponseEntity responseEntity = null;
 

@@ -1,19 +1,26 @@
 package com.ClinicaOdontologica.Clinica.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
-public class DentistaEntity {
+@Table(name = "Dentista")
 
+public class DentistaEntity {
     @Id
+    @SequenceGenerator(name = "dentista_sequence", sequenceName = "dentista_sequence")
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
+
     private int id;
     private String nome;
     private String sobrenome;
     private String matriculaCad;
+
+
+@OneToMany(mappedBy = "dentistaEntity", fetch = FetchType.LAZY)
+private Set<PacienteEntity> consultas = new HashSet<PacienteEntity>();
 
     public DentistaEntity(int id, String nome, String sobrenome, String matriculaCad) {
         this.id = id;
@@ -28,7 +35,8 @@ public class DentistaEntity {
         this.matriculaCad = matriculaCad;
     }
 
-    public DentistaEntity(){}
+    public DentistaEntity(){
+       }
 
     public int getId() {
         return id;

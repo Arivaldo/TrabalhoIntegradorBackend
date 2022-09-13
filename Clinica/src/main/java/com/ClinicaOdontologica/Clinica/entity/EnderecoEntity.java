@@ -1,20 +1,25 @@
 package com.ClinicaOdontologica.Clinica.entity;
 
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
+@Table(name = "endereco")
+
 public class EnderecoEntity {
     @Id
+    @SequenceGenerator(name = "endereco_sequence", sequenceName = "endereco_sequence")
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
+
     private int id;
     private String rua;
     private String numero;
     private String bairro;
     private String cep;
+
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "paciente_id")
+    private PacienteEntity pacienteEntity;
 
     public EnderecoEntity(int id, String rua, String numero, String bairro, String cep) {
         this.id = id;

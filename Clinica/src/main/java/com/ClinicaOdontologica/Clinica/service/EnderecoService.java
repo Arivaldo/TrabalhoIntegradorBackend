@@ -13,6 +13,8 @@ import java.util.Optional;
 
 public class EnderecoService {
 
+    private EnderecoService enderecoService;
+
     @Autowired
     IDao <EnderecoEntity> enderecoDAOH2;
 

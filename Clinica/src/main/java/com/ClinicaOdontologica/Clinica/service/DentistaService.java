@@ -2,6 +2,7 @@ package com.ClinicaOdontologica.Clinica.service;
 
 import com.ClinicaOdontologica.Clinica.Dao.IDao;
 import com.ClinicaOdontologica.Clinica.entity.DentistaEntity;
+import com.ClinicaOdontologica.Clinica.repository.IDentistaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +13,8 @@ import java.util.Optional;
 @Service
 
 public class DentistaService {
+
+    private IDentistaRepository dentistaRepository;
 
     @Autowired
     IDao <DentistaEntity> dentistaDAOH2;

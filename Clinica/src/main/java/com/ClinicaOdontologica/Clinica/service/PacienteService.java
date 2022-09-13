@@ -13,6 +13,8 @@ import java.util.Optional;
 
 public class PacienteService {
 
+    private PacienteService pacienteService;
+
     @Autowired
     IDao <PacienteEntity> pacienteDAOH2;
 
