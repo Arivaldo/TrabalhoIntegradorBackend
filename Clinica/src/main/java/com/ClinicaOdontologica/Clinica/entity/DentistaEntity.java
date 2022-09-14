@@ -6,16 +6,20 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "Dentista")
+@Table(name = "dentista")
 
 public class DentistaEntity {
-    @Id
+
     @SequenceGenerator(name = "dentista_sequence", sequenceName = "dentista_sequence")
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-
+    @Column(name="id")
+    @Id
     private int id;
+    @Column(name="nome")
     private String nome;
+    @Column(name="sobrenome")
     private String sobrenome;
+    @Column(name="matricula")
     private String matriculaCad;
 
 

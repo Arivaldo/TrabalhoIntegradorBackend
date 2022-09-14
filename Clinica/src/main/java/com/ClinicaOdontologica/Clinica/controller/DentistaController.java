@@ -19,7 +19,7 @@ public class DentistaController {
     @Autowired
     DentistaService service;
 
-    @PostMapping("/dentista/salvar")
+    @PostMapping("/salvar")
     public DentistaEntity salvar(@RequestBody DentistaEntity dentistaEntity) throws SQLException {
         return service.salvar(dentistaEntity);
     }

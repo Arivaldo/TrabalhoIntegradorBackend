@@ -5,6 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 public interface IDentistaRepository extends JpaRepository<DentistaEntity, Integer> {
-    @Query("select d from DentistaEntity where d.nome = ?1")
+    @Query("select d from DentistaEntity d where d.nome = ?1")
     DentistaEntity findDentistaByName(String name);
 }

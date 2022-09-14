@@ -5,6 +5,7 @@ import com.ClinicaOdontologica.Clinica.Dao.IDao;
 import com.ClinicaOdontologica.Clinica.entity.DentistaEntity;
 import org.apache.logging.log4j.Logger;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.stereotype.Repository;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -16,7 +17,8 @@ import java.util.Optional;
 
 import static org.apache.logging.log4j.LogManager.getLogger;
 
-@Configuration
+
+@Repository
 public class DentistaDAOH2 implements IDao<DentistaEntity> {
 
     private ConfiguracaoJDBC configuracaoJDBC;
@@ -28,18 +30,17 @@ public class DentistaDAOH2 implements IDao<DentistaEntity> {
 
         log.info("Abrindo conexao com o banco de dados.");
 
-        String SQLInsert = String.format("INSERT INTO dentista (nome, sobrenome, matriculaCad)" +
-                " VALUES ('%s','%s','%s')", dentistaEntity.getNome(), dentistaEntity.getSobrenome(), dentistaEntity.getMatriculaCad());
+        String SQLInsert = String.format("INSERT INTO dentista(id, nome, sobrenome, matricula)" +
+                " VALUES (%s, '%s','%s','%s')",dentistaEntity.getId(),dentistaEntity.getNome(), dentistaEntity.getSobrenome(), dentistaEntity.getMatriculaCad());
         Connection connection = null;
 
         try {
             log.info("Cadastrando Dentista : " + dentistaEntity.getNome());
 
-            configuracaoJDBC = new ConfiguracaoJDBC("org.h2.Driver", "jdbc:h2:~/test" +
-                    "INIT=RUNSCRIPT FROM 'create.sql'", "sa", "");
+            configuracaoJDBC = new ConfiguracaoJDBC("org.h2.Driver", "jdbc:h2:~/test" , "sa", "");
             connection = configuracaoJDBC.getConnection();
             Statement statement = connection.createStatement();
-            statement.execute(SQLInsert, Statement.RETURN_GENERATED_KEYS);
+            statement.executeUpdate(SQLInsert, Statement.RETURN_GENERATED_KEYS);
             ResultSet resultSet = statement.getGeneratedKeys();
 
             if (resultSet.next()) {

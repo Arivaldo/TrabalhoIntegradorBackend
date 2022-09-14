@@ -1,5 +1,7 @@
 package com.ClinicaOdontologica.Clinica.Dao;
 
+import org.springframework.stereotype.Component;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 
@@ -8,7 +10,6 @@ public class ConfiguracaoJDBC {
     private String dbUrl;
     private String usuario;
     private String senha;
-
     public ConfiguracaoJDBC(String jdbcDriver, String dbUrl, String usuario, String senha) {
         this.jdbcDriver = jdbcDriver;
         this.dbUrl = dbUrl;
