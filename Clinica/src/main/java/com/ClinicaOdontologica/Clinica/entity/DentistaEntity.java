@@ -10,10 +10,10 @@ import java.util.Set;
 
 public class DentistaEntity {
 
-    @SequenceGenerator(name = "dentista_sequence", sequenceName = "dentista_sequence")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name="id")
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "dentista_sequence")
+    @Column(name="id")
+    @SequenceGenerator(name = "dentista_sequence", sequenceName = "dentista_sequence")
     private int id;
     @Column(name="nome")
     private String nome;

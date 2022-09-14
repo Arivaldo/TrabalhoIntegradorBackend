@@ -18,12 +18,17 @@ import java.util.Optional;
 import static org.apache.logging.log4j.LogManager.getLogger;
 
 
+@Configuration
 @Repository
 public class DentistaDAOH2 implements IDao<DentistaEntity> {
 
     private ConfiguracaoJDBC configuracaoJDBC;
 
     final static Logger log = getLogger(DentistaDAOH2.class);
+
+    public DentistaDAOH2(ConfiguracaoJDBC configuracaoJDBC) {
+        this.configuracaoJDBC = configuracaoJDBC;
+    }
 
     @Override
     public DentistaEntity salvar(DentistaEntity dentistaEntity) throws SQLException {
@@ -36,8 +41,6 @@ public class DentistaDAOH2 implements IDao<DentistaEntity> {
 
         try {
             log.info("Cadastrando Dentista : " + dentistaEntity.getNome());
-
-            configuracaoJDBC = new ConfiguracaoJDBC("org.h2.Driver", "jdbc:h2:~/test" , "sa", "");
             connection = configuracaoJDBC.getConnection();
             Statement statement = connection.createStatement();
             statement.executeUpdate(SQLInsert, Statement.RETURN_GENERATED_KEYS);
@@ -67,9 +70,6 @@ public class DentistaDAOH2 implements IDao<DentistaEntity> {
         List<DentistaEntity> dentistaEntities = new ArrayList<>();
 
         try {
-
-            configuracaoJDBC = new ConfiguracaoJDBC("org.h2.Driver", "jdbc:h2:~/test" +
-                    "INIT=RUNSCRIPT FROM 'create.sql'", "sa", "");
             connection = configuracaoJDBC.getConnection();
             statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(SQLSelect);
@@ -97,9 +97,6 @@ public class DentistaDAOH2 implements IDao<DentistaEntity> {
 
         try {
             log.info("Alterando valor produto: " + dentistaEntity.getId());
-            configuracaoJDBC = new ConfiguracaoJDBC("org.h2.Driver", "jdbc:h2:~/test;" +
-                    "INIT=RUBSCRIPT FROM 'create.sql'", "sa", "");
-
             connection = configuracaoJDBC.getConnection();
             //Executando o comando SQLUpdate
             Statement statement = connection.createStatement();
@@ -121,8 +118,6 @@ public class DentistaDAOH2 implements IDao<DentistaEntity> {
         String SQLSelect = String.format("SELECT * FROM dentista WHERE id = %d", id);
 
         try {
-            configuracaoJDBC = new ConfiguracaoJDBC("org.h2.Driver", "jdbc:h2:~/test" +
-                    "INIT=RUNSCRIPT FROM 'create.sql'", "sa", "");
             connection = configuracaoJDBC.getConnection();
 
             log.debug("Buscar Dentista por id: " + id);
@@ -153,8 +148,6 @@ public class DentistaDAOH2 implements IDao<DentistaEntity> {
 
 
         try {
-            configuracaoJDBC = new ConfiguracaoJDBC("org.h2.Driver", "jdbc:h2:~/test" +
-                    "INIT=RUNSCRIPT FROM 'create.sql'", "sa", "");
             connection = configuracaoJDBC.getConnection();
             log.info("Excluindo dentista: " + id);
             statement = connection.createStatement();
