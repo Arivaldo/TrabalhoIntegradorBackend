@@ -1,7 +1,7 @@
 package com.ClinicaOdontologica.Clinica.service;
 
-import com.ClinicaOdontologica.Clinica.Dao.IDao;
 import com.ClinicaOdontologica.Clinica.entity.EnderecoEntity;
+import com.ClinicaOdontologica.Clinica.repository.IEnderecoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,28 +13,25 @@ import java.util.Optional;
 
 public class EnderecoService {
 
-    private EnderecoService enderecoService;
-
     @Autowired
-    IDao <EnderecoEntity> enderecoDAOH2;
+    IEnderecoRepository enderecoRepository;
 
     public EnderecoEntity salvar (EnderecoEntity enderecoEntity) throws SQLException {
-        return enderecoDAOH2.salvar(enderecoEntity);
+        return enderecoRepository.save(enderecoEntity);
     }
 
     public List<EnderecoEntity> buscarTodos() throws SQLException {
-        return enderecoDAOH2.buscarTodos();
+        return enderecoRepository.findAll();
     }
 
     public void alterar (EnderecoEntity enderecoEntity) throws SQLException {
-        enderecoDAOH2.alterar(enderecoEntity);
     }
 
     public Optional<EnderecoEntity> buscarPorId (int id) throws SQLException {
-        return enderecoDAOH2.buscarPorId(id);
+        return enderecoRepository.findById(id);
     }
 
     public void excluir (int id) throws SQLException {
-        enderecoDAOH2.excluir(id);
+        enderecoRepository.deleteById(id);
     }
 }

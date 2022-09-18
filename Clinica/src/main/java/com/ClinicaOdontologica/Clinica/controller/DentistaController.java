@@ -7,31 +7,36 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.EntityNotFoundException;
 import java.sql.SQLException;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/dentista",method = RequestMethod.GET,produces = "application/json")
-
-
+@RequestMapping(value = "/dentista")
 public class DentistaController {
 
     @Autowired
     DentistaService service;
 
     @PostMapping("/salvar")
-    public DentistaEntity salvar(@RequestBody DentistaEntity dentistaEntity) throws SQLException {
+    public DentistaEntity salvar(@RequestBody DentistaEntity dentistaEntity) {
         return service.salvar(dentistaEntity);
     }
 
-    @GetMapping("/dentista/{id}")
+    @GetMapping
     public List<DentistaEntity> buscarTodos() throws SQLException {
         return service.buscarTodos();
     }
 
-    @RequestMapping
-    public DentistaEntity buscarPorId(@RequestParam ("id") int id) throws SQLException {
-        return service.buscarPorId(id).isEmpty()? new DentistaEntity() : service.buscarPorId(id).get();
+    @GetMapping("/{id}")
+    public DentistaEntity buscarPorId(@PathVariable ("id") int id) throws SQLException {
+        DentistaEntity dentista = service.buscarPorId(id).orElseThrow(EntityNotFoundException::new);
+        return dentista;
+    }
+
+    @GetMapping("/nome")
+    public DentistaEntity buscarPorNome(@RequestParam("nome") String nome) throws SQLException {
+        return service.buscarPorNome(nome);
     }
 
     @PatchMapping

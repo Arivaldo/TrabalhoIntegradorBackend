@@ -1,6 +1,5 @@
 package com.ClinicaOdontologica.Clinica.service;
 
-import com.ClinicaOdontologica.Clinica.Dao.IDao;
 import com.ClinicaOdontologica.Clinica.entity.DentistaEntity;
 import com.ClinicaOdontologica.Clinica.repository.IDentistaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,31 +10,31 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-
 public class DentistaService {
 
-    private IDentistaRepository dentistaRepository;
-
     @Autowired
-    IDao <DentistaEntity> dentistaDAOH2;
+    IDentistaRepository dentistaRepository;
 
-    public DentistaEntity salvar (DentistaEntity dentistaEntity) throws SQLException {
-        return dentistaDAOH2.salvar(dentistaEntity);
+
+    public DentistaEntity salvar (DentistaEntity dentistaEntity){
+        return dentistaRepository.save(dentistaEntity);
+    }
+
+    public DentistaEntity buscarPorNome(String nome){
+        return dentistaRepository.findDentistaEntityByNome(nome);
     }
 
     public List<DentistaEntity> buscarTodos() throws SQLException {
-        return dentistaDAOH2.buscarTodos();
+        return dentistaRepository.findAll();
     }
 
     public void alterar (DentistaEntity dentistaEntity) throws SQLException {
-        dentistaDAOH2.alterar(dentistaEntity);
     }
 
     public Optional<DentistaEntity> buscarPorId (int id) throws SQLException {
-        return dentistaDAOH2.buscarPorId(id);
+        return dentistaRepository.findById(id);
     }
 
     public void excluir (int id) throws SQLException {
-        dentistaDAOH2.excluir(id);
     }
 }

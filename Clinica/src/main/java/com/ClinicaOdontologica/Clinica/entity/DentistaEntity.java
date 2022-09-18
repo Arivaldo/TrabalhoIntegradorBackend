@@ -23,8 +23,8 @@ public class DentistaEntity {
     private String matriculaCad;
 
 
-@OneToMany(mappedBy = "dentistaEntity", fetch = FetchType.LAZY)
-private Set<PacienteEntity> consultas = new HashSet<PacienteEntity>();
+    @OneToMany(mappedBy = "dentistaEntity", fetch = FetchType.LAZY)
+    private Set<PacienteEntity> consultas = new HashSet<PacienteEntity>();
 
     public DentistaEntity(int id, String nome, String sobrenome, String matriculaCad) {
         this.id = id;
@@ -40,7 +40,7 @@ private Set<PacienteEntity> consultas = new HashSet<PacienteEntity>();
     }
 
     public DentistaEntity(){
-       }
+    }
 
     public int getId() {
         return id;

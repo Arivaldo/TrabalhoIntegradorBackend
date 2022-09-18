@@ -22,17 +22,17 @@ public class EnderecoController {
 
 
     @PostMapping
-        public EnderecoEntity salvar(@RequestBody EnderecoEntity enderecoEntity) throws SQLException {
+    public EnderecoEntity salvar(@RequestBody EnderecoEntity enderecoEntity) throws SQLException {
         return service.salvar(enderecoEntity);
     }
 
     @GetMapping
-        public List<EnderecoEntity> buscarTodos() throws SQLException {
+    public List<EnderecoEntity> buscarTodos() throws SQLException {
         return service.buscarTodos();
     }
 
     @RequestMapping(value = "/buscarId")
-        public EnderecoEntity buscarPorId(@RequestParam ("id") int id) throws SQLException {
+    public EnderecoEntity buscarPorId(@RequestParam ("id") int id) throws SQLException {
         return service.buscarPorId(id).isEmpty()? new EnderecoEntity() : service.buscarPorId(id).get();
     }
 
@@ -47,14 +47,14 @@ public class EnderecoController {
     }
 
     @DeleteMapping
-        public ResponseEntity excluir(@PathVariable Integer id) throws SQLException {
-            ResponseEntity responseEntity = null;
+    public ResponseEntity excluir(@PathVariable Integer id) throws SQLException {
+        ResponseEntity responseEntity = null;
 
-            if(service.buscarPorId(id) == null){
-                responseEntity = new ResponseEntity(HttpStatus.NOT_FOUND);
-            }else{
-                responseEntity = new ResponseEntity(HttpStatus.NO_CONTENT);
-            }
-            return responseEntity;
+        if(service.buscarPorId(id) == null){
+            responseEntity = new ResponseEntity(HttpStatus.NOT_FOUND);
+        }else{
+            responseEntity = new ResponseEntity(HttpStatus.NO_CONTENT);
         }
+        return responseEntity;
     }
+}

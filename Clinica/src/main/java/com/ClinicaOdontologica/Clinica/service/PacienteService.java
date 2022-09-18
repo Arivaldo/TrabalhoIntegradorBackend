@@ -1,7 +1,7 @@
 package com.ClinicaOdontologica.Clinica.service;
 
-import com.ClinicaOdontologica.Clinica.Dao.IDao;
 import com.ClinicaOdontologica.Clinica.entity.PacienteEntity;
+import com.ClinicaOdontologica.Clinica.repository.IPacienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,31 +10,28 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-
 public class PacienteService {
 
-    private PacienteService pacienteService;
-
     @Autowired
-    IDao <PacienteEntity> pacienteDAOH2;
+    IPacienteRepository pacienteRepository;
 
     public PacienteEntity salvar (PacienteEntity pacienteEntity) throws SQLException {
-        return pacienteDAOH2.salvar(pacienteEntity);
+        return pacienteRepository.save(pacienteEntity);
     }
 
     public List<PacienteEntity> buscarTodos() throws SQLException {
-        return pacienteDAOH2.buscarTodos();
+        return pacienteRepository.findAll();
     }
 
     public void alterar (PacienteEntity pacienteEntity) throws SQLException {
-        pacienteDAOH2.alterar(pacienteEntity);
+        pacienteRepository.saveAndFlush(pacienteEntity);
     }
 
     public Optional<PacienteEntity> buscarPorId (int id) throws SQLException {
-        return pacienteDAOH2.buscarPorId(id);
+        return pacienteRepository.findById(id);
     }
 
     public void excluir (int id) throws SQLException {
-        pacienteDAOH2.excluir(id);
+        pacienteRepository.deleteById(id);
     }
 }

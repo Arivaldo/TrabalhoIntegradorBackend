@@ -24,6 +24,10 @@ public class PacienteEntity {
     @JoinColumn(name = "endereco_id")
     private EnderecoEntity enderecoEntity;
 
+    public void setDentistaEntity(DentistaEntity dentistaEntity) {
+        this.dentistaEntity = dentistaEntity;
+    }
+
     public PacienteEntity(int id, String nome, String sobrenome, String rg, Date dataAlta) {
         this.id = id;
         this.nome = nome;
