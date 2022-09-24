@@ -1,13 +1,18 @@
 package com.ClinicaOdontologica.Clinica.controller;
 
+import com.ClinicaOdontologica.Clinica.controller.dto.PacienteDto;
+import com.ClinicaOdontologica.Clinica.controller.dto.PacienteForm;
 import com.ClinicaOdontologica.Clinica.entity.PacienteEntity;
 import com.ClinicaOdontologica.Clinica.exception.BadRequestException;
 import com.ClinicaOdontologica.Clinica.exception.ResourceNotFoundException;
+import com.ClinicaOdontologica.Clinica.repository.IPacienteRepository;
 import com.ClinicaOdontologica.Clinica.service.PacienteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import javax.transaction.Transactional;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
@@ -21,9 +26,19 @@ public class PacienteController {
     @Autowired
     PacienteService service;
 
+    @Autowired
+    IPacienteRepository pacienteRepository;
+
+    @Autowired
+    IPacienteRepository repository;
+
     @PostMapping("/salvar")
-    public PacienteEntity salvar(@RequestBody PacienteEntity pacienteEntity) throws BadRequestException, SQLException {
-        return service.salvar(pacienteEntity);
+    @Transactional
+    public ResponseEntity<PacienteDto> cadastrarPaciente(@RequestBody PacienteForm pacienteForm){
+        PacienteEntity novoPaciente = pacienteForm.toEntity();//converte o pacienteForm para pacienteEntity
+        pacienteRepository.save(novoPaciente);
+
+        return ResponseEntity.ok(novoPaciente.toPacienteDto());
     }
 
     @GetMapping
@@ -50,7 +65,7 @@ public class PacienteController {
         return ResponseEntity.ok(pacienteEntityOptional.get());
     }
 
-    @DeleteMapping("{id}")
+    @DeleteMapping("/{id}")
 
     public ResponseEntity excluir(@PathVariable Integer id) throws BadRequestException {
 

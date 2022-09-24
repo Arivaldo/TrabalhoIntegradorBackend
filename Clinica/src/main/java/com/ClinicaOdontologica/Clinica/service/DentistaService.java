@@ -20,11 +20,7 @@ public class DentistaService {
         return dentistaRepository.save(dentistaEntity);
     }
 
-    public DentistaEntity buscarPorNome(String nome){
-        return dentistaRepository.findDentistaEntityByNome(nome);
-    }
-
-    public List<DentistaEntity> buscarTodos() throws SQLException {
+     public List<DentistaEntity> buscarTodos() throws SQLException {
         return dentistaRepository.findAll();
     }
 
@@ -36,5 +32,6 @@ public class DentistaService {
     }
 
     public void excluir (int id) throws SQLException {
+        dentistaRepository.deleteById(id);
     }
 }

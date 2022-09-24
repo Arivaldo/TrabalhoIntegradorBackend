@@ -35,11 +35,6 @@ public class DentistaController {
 
     }
 
-    @GetMapping("/nome")
-    public DentistaEntity buscarPorNome(@RequestParam("nome") String nome) throws ResourceNotFoundException {
-        return service.buscarPorNome(nome);
-    }
-
     @PatchMapping
     public ResponseEntity<DentistaEntity> alterar(@RequestBody DentistaEntity dentistaEntity) throws BadRequestException, SQLException {
         Optional<DentistaEntity> dentistaEntityOptional = service.buscarPorId(dentistaEntity.getId());
@@ -54,7 +49,7 @@ public class DentistaController {
         return ResponseEntity.ok(dentistaEntityOptional.get());
     }
 
-    @DeleteMapping("{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity excluir(@PathVariable Integer id) throws SQLException {
         ResponseEntity responseEntity = null;
 

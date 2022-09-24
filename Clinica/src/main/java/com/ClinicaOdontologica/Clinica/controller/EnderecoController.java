@@ -48,7 +48,7 @@ public class EnderecoController {
         return responseEntity;
     }
 
-    @DeleteMapping("{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity excluir(@PathVariable Integer id) throws BadRequestException {
 
         try {

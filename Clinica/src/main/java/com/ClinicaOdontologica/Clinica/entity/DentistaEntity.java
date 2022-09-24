@@ -1,11 +1,17 @@
 package com.ClinicaOdontologica.Clinica.entity;
 
 
+import com.ClinicaOdontologica.Clinica.controller.dto.DentistaDto;
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
+@Getter
+@Setter
 @Table(name = "dentista")
 
 public class DentistaEntity {
@@ -42,35 +48,13 @@ public class DentistaEntity {
     public DentistaEntity(){
     }
 
-    public int getId() {
-        return id;
-    }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public String getSobrenome() {
-        return sobrenome;
-    }
-
-    public void setSobrenome(String sobrenome) {
-        this.sobrenome = sobrenome;
-    }
-
-    public String getMatriculaCad() {
-        return matriculaCad;
-    }
-
-    public void setMatriculaCad(String matriculaCad) {
-        this.matriculaCad = matriculaCad;
+    public DentistaDto toDentistaDto() {
+        return new DentistaDto(
+                this.id,
+                this.nome,
+                this.sobrenome,
+                this.matriculaCad
+        );
     }
 }
