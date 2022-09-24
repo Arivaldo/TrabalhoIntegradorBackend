@@ -9,5 +9,6 @@ import java.util.Optional;
 
 @Repository
 public interface IDentistaRepository extends JpaRepository<DentistaEntity, Integer> {
-    Optional<DentistaEntity> findById(String nome);
+    @Query("SELECT d FROM DentistaEntity d WHERE d.id = ?1")
+    Optional<DentistaEntity> findById(Integer id);
 }

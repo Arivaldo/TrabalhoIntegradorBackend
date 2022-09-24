@@ -44,25 +44,14 @@ public class ConsultaController {
     IConsultaRepository consultaRepository;
 
 
-    @PostMapping("/{idConsulta}")
-    @Transactional
+   // @PostMapping("/{idPaciente}")
+    //@Transactional
 
-    public ResponseEntity agendarConsulta(@PathVariable("{idConsulta}") int idConsulta,
-                                          @RequestParam("idPaciente") int idPaciente,
-                                          @RequestParam("idDentista") int idDentista,
-                                          @RequestBody ConsultaForm consultaForm) throws SQLException {
+    //public ResponseEntity cadastrarConsulta(@PathVariable("idPaciente") int idPaciente){
 
-        PacienteEntity pacienteEntity = pacienteRepository.findById(idPaciente).orElseThrow(EntityNotFoundException::new);
-        DentistaEntity dentistaEntity = dentistaRepository.findById(idDentista).orElseThrow(EntityNotFoundException::new);
 
-        ConsultaEntity consultaEntity = new ConsultaEntity();
-        consultaEntity.setPacienteEntity(pacienteEntity);
-        consultaEntity.setDentistaEntity(dentistaEntity);
-
-        consultaRepository.save(consultaEntity);
-
-        return ResponseEntity.ok(consultaEntity.toconsultaDetalhesDto());
-    }}//Apagar esse colchete
+    }
+    //Apagar esse colchete;
 
 
 //    @GetMapping
