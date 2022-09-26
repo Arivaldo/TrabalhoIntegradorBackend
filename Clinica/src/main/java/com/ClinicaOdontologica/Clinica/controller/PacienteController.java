@@ -4,7 +4,6 @@ import com.ClinicaOdontologica.Clinica.controller.dto.PacienteDto;
 import com.ClinicaOdontologica.Clinica.controller.dto.PacienteForm;
 import com.ClinicaOdontologica.Clinica.entity.PacienteEntity;
 import com.ClinicaOdontologica.Clinica.repository.IPacienteRepository;
-import com.ClinicaOdontologica.Clinica.security.PlainPassword;
 import com.ClinicaOdontologica.Clinica.service.PacienteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -48,7 +47,7 @@ public class PacienteController {
 
 //    @GetMapping("/{id}")
 //    public PacienteEntity buscarPorId(@RequestParam("id") int id) throws  SQLException {
-//        return service.buscarPorId(id).isEmpty() ? new PacienteEntity(this.nome,) }
+//        return service.buscarPorId(id).isEmpty() ? new PacienteEntity(this.nome) : service.buscarPorId(id).get();
 
     @PatchMapping
     public ResponseEntity<PacienteEntity> alterar(@RequestBody PacienteEntity pacienteEntity) throws  SQLException {
