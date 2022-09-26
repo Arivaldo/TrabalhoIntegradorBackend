@@ -1,11 +1,11 @@
 package com.ClinicaOdontologica.Clinica.entity;
 
 import com.ClinicaOdontologica.Clinica.controller.dto.PacienteDto;
+import com.ClinicaOdontologica.Clinica.security.PlainPassword;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 @Getter
@@ -54,7 +54,7 @@ public class PacienteEntity {
         this.username = username;
         this.password = password;
     }
-    public PacienteEntity(){}
+    public PacienteEntity(String nome, String sobrenome, String dataAlta, String username, PlainPassword plainPassword){}
 
     //Criando o método dto para ocultar a senha
     public PacienteDto toPacienteDto(){

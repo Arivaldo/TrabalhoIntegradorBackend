@@ -29,6 +29,12 @@ public class ProdutoForm {
     }
 
     public Produto toEntity(Usuario usuario) {
-        return new Produto(this.codigoBarras, this.nome, this.descricao, this.preco, usuario);
+        return new Produto(
+                this.codigoBarras,
+                this.nome,
+                this.descricao,
+                this.preco,
+
+                usuario);
     }
 }

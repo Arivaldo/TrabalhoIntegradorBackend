@@ -1,6 +1,7 @@
 package com.ClinicaOdontologica.Clinica.controller.dto;
 
 import com.ClinicaOdontologica.Clinica.entity.PacienteEntity;
+import com.ClinicaOdontologica.Clinica.security.PlainPassword;
 import com.sun.istack.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -34,8 +35,7 @@ public class PacienteForm {
                 this.sobrenome,
                 this.dataAlta,
                 this.username,
-                this.password
-        );
+                new PlainPassword(this.password));
     }
 }
 

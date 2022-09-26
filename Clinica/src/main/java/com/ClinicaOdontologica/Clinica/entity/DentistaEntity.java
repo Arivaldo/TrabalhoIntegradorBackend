@@ -6,8 +6,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
 
 @Entity
 @Getter
@@ -28,18 +26,12 @@ public class DentistaEntity {
     @Column(name="matricula")
     private String matriculaCad;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "paciente_id")
+    private PacienteEntity paciente;
 
-    @OneToMany(mappedBy = "dentistaEntity", fetch = FetchType.LAZY)
-    private Set<PacienteEntity> consultas = new HashSet<PacienteEntity>();
 
-    public DentistaEntity(int id, String nome, String sobrenome, String matriculaCad) {
-        this.id = id;
-        this.nome = nome;
-        this.sobrenome = sobrenome;
-        this.matriculaCad = matriculaCad;
-    }
-
-    public DentistaEntity(String nome, String sobrenome, String matriculaCad) {
+    public DentistaEntity(String nome, String sobrenome, String matriculaCad, PacienteEntity paciente) {
         this.nome = nome;
         this.sobrenome = sobrenome;
         this.matriculaCad = matriculaCad;

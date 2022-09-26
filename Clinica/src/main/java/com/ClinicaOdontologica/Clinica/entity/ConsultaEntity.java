@@ -42,7 +42,7 @@ public class ConsultaEntity {
         this.dentistaEntity = dentistaEntity;
     }
 
-    public ConsultaEntity(String data, String hora, PacienteEntity pacienteEntity, DentistaEntity dentistaEntity) {
+    public ConsultaEntity(String data, String hora, PacienteEntity pacienteEntity) {
         this.data = data;
         this.hora = hora;
         this.pacienteEntity = pacienteEntity;
@@ -54,11 +54,10 @@ public class ConsultaEntity {
 
 public ConsultaDetalhesDto toconsultaDetalhesDto(){
         return new ConsultaDetalhesDto(
-                this.id,
                 this.data,
                 this.hora,
-                this.pacienteEntity.toPacienteDto(),
-                this.dentistaEntity.toDentistaDto());
+                this.pacienteEntity,
+                this.dentistaEntity);
     }
 }
 

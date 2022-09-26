@@ -1,20 +1,25 @@
 package com.ClinicaOdontologica.Clinica.controller.dto;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.ClinicaOdontologica.Clinica.entity.ConsultaEntity;
+import com.ClinicaOdontologica.Clinica.entity.PacienteEntity;
+import lombok.Getter;
+
+@Getter
 
 public class ConsultaForm {
+    private String data;
+    private String hora;
 
-    @JsonProperty("consulta")
-    private String consulta;
 
-    public String getConsulta() {
-        return consulta;
+    public ConsultaForm(String data, String hora) {
+        this.data = data;
+        this.hora = hora;
     }
 
-    public ConsultaForm() {
-    }
-
-    public ConsultaForm(String consulta) {
-        this.consulta = consulta;
+    public ConsultaEntity toEntity(PacienteEntity paciente) {
+        return new ConsultaEntity(
+                this.data,
+                this.hora,
+                paciente);
     }
 }

@@ -8,8 +8,8 @@ import java.util.List;
 
 @Repository
 public interface IConsultaRepository extends JpaRepository<ConsultaEntity, Integer> {
-    List<ConsultaEntity> findConsultaEntityByPacienteId(Integer idPaciente);
-    List<ConsultaEntity> findConsultaEntityByDentistaId(Integer idDentista);
+
+//    List<ConsultaEntity> findAllByPacienteId(Integer idPaciente);
 
     //Procurando a consulta por paciente e dentista respectivamente
 }

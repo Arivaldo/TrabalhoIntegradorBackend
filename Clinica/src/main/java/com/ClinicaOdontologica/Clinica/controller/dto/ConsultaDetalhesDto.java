@@ -1,8 +1,12 @@
 package com.ClinicaOdontologica.Clinica.controller.dto;
 
+import com.ClinicaOdontologica.Clinica.entity.DentistaEntity;
+import com.ClinicaOdontologica.Clinica.entity.PacienteEntity;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Getter
+@NoArgsConstructor
 
 public class ConsultaDetalhesDto {
     private int id;
@@ -12,12 +16,14 @@ public class ConsultaDetalhesDto {
     private DentistaDto dentistaDto;
 
     //Classe para retornar os dados da consulta
-    public ConsultaDetalhesDto(int id, String data, String hora, PacienteDto pacienteDto, DentistaDto dentistaDto) {
-        this.id = id;
+    public ConsultaDetalhesDto(String data, String hora, PacienteEntity pacienteEntity, DentistaEntity dentistaEntity) {
+
         this.data = data;
         this.hora = hora;
         this.pacienteDto = pacienteDto;
         this.dentistaDto = dentistaDto;
 
     }
+
+
 }

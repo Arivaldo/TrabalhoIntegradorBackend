@@ -21,63 +21,63 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@Configuration
-@EnableWebSecurity
-public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
+    @Configuration
+    @EnableWebSecurity
+    public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-    @Autowired
-    private UsuarioService usuarioService;
+        @Autowired
+        private UsuarioService usuarioService;
 
-    @Autowired
-    private TokenManager tokenManager;
-
-    @Override
-    @Bean(BeanIds.AUTHENTICATION_MANAGER)
-    public AuthenticationManager authenticationManagerBean() throws Exception {
-        return super.authenticationManagerBean();
-    }
-
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        http
-                .authorizeRequests()
-                .antMatchers(HttpMethod.POST, "/usuario").permitAll()
-                .antMatchers("/auth/**").permitAll()
-                .antMatchers("/h2-console/**").permitAll()
-                .anyRequest().authenticated()
-                .and()
-                .headers().frameOptions().disable()
-                .and()
-                .cors()
-                .and()
-                .csrf().disable()
-                .addFilterBefore(new JwtAuthenticationFilter(tokenManager, usuarioService),
-                        UsernamePasswordAuthenticationFilter.class)
-                .exceptionHandling()
-                .authenticationEntryPoint(new JwtAuthenticationEntryPoint());
-
-    }
-
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(this.usuarioService)
-                .passwordEncoder(new BCryptPasswordEncoder());
-    }
-
-    @Override
-    public void configure(WebSecurity web) {
-        web.ignoring().antMatchers("/**.html", "/v2/api-docs", "/webjars/**",
-                "/configuration/**", "/swagger-resources/**", "/css/**", "/**.ico", "/js/**");
-    }
-
-    private static class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
+        @Autowired
+        private TokenManager tokenManager;
 
         @Override
-        public void commence(HttpServletRequest request, HttpServletResponse response,
-                             AuthenticationException authException) throws IOException {
+        @Bean(BeanIds.AUTHENTICATION_MANAGER)
+        public AuthenticationManager authenticationManagerBean() throws Exception {
+            return super.authenticationManagerBean();
+        }
 
-            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Você não está autorizado a acessar esse recurso.");
+        @Override
+        protected void configure(HttpSecurity http) throws Exception {
+            http
+                    .authorizeRequests()
+                    .antMatchers(HttpMethod.POST, "/usuario").permitAll()
+                    .antMatchers("/auth/**").permitAll()
+                    .antMatchers("/h2-console/**").permitAll()
+                    .anyRequest().authenticated()
+                    .and()
+                    .headers().frameOptions().disable()
+                    .and()
+                    .cors()
+                    .and()
+                    .csrf().disable()
+                    .addFilterBefore(new JwtAuthenticationFilter(tokenManager, usuarioService),
+                            UsernamePasswordAuthenticationFilter.class)
+                    .exceptionHandling()
+                    .authenticationEntryPoint(new JwtAuthenticationEntryPoint());
+
+        }
+
+        @Override
+        protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+            auth.userDetailsService(this.usuarioService)
+                    .passwordEncoder(new BCryptPasswordEncoder());
+        }
+
+        @Override
+        public void configure(WebSecurity web) {
+            web.ignoring().antMatchers("/**.html", "/v2/api-docs", "/webjars/**",
+                    "/configuration/**", "/swagger-resources/**", "/css/**", "/**.ico", "/js/**");
+        }
+
+        private static class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
+
+            @Override
+            public void commence(HttpServletRequest request, HttpServletResponse response,
+                                 AuthenticationException authException) throws IOException {
+
+                response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Você não está autorizado a acessar esse recurso.");
+            }
         }
     }
-}
 
