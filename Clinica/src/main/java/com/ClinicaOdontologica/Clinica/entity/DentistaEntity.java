@@ -30,6 +30,10 @@ public class DentistaEntity {
     @JoinColumn(name = "paciente_id")
     private PacienteEntity paciente;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "consulta_id")
+    private ConsultaEntity consulta;
+
 
     public DentistaEntity(String nome, String sobrenome, String matriculaCad, PacienteEntity paciente) {
         this.nome = nome;
@@ -39,8 +43,6 @@ public class DentistaEntity {
 
     public DentistaEntity(){
     }
-
-
     public DentistaDto toDentistaDto() {
         return new DentistaDto(
                 this.id,

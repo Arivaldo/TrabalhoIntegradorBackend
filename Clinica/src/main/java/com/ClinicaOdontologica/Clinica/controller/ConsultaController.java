@@ -3,6 +3,7 @@ package com.ClinicaOdontologica.Clinica.controller;
 import com.ClinicaOdontologica.Clinica.controller.dto.ConsultaDetalhesDto;
 import com.ClinicaOdontologica.Clinica.controller.dto.ConsultaForm;
 import com.ClinicaOdontologica.Clinica.entity.ConsultaEntity;
+import com.ClinicaOdontologica.Clinica.entity.DentistaEntity;
 import com.ClinicaOdontologica.Clinica.entity.PacienteEntity;
 import com.ClinicaOdontologica.Clinica.repository.IConsultaRepository;
 import com.ClinicaOdontologica.Clinica.repository.IDentistaRepository;
@@ -33,10 +34,11 @@ public class ConsultaController {
     @Transactional
 
     public ResponseEntity cadastrarConsulta(@PathVariable("idPaciente") Integer idPaciente,
+                                            @PathVariable("idDentista") Integer idDentista,
                                             @RequestBody ConsultaForm consultaForm){
 
         PacienteEntity paciente = pacienteRepository.findById(idPaciente).orElseThrow(EntityNotFoundException::new);
-//        DentistaEntity dentista = dentistaRepository.findById(idDentista).orElseThrow(EntityNotFoundException::new);
+        DentistaEntity dentista = dentistaRepository.findById(idDentista).orElseThrow(EntityNotFoundException::new);
 
         ConsultaEntity consulta = consultaForm.toEntity(paciente);
 

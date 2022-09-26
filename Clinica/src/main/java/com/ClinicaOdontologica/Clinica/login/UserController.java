@@ -1,4 +1,5 @@
-package com.example.springSeguranca.login;
+package com.ClinicaOdontologica.Clinica.login;
+
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -10,6 +11,7 @@ public class UserController {
     public String home(){
         return "<h1> Seja bem vindo </h1>";
     }
+
 
     @GetMapping("/user")
     public String user(){

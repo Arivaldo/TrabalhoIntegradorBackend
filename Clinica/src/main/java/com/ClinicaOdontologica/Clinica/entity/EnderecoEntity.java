@@ -2,22 +2,29 @@ package com.ClinicaOdontologica.Clinica.entity;
 
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 @Getter
 @Entity
 @Table(name = "endereco")
+@NoArgsConstructor
 
 public class EnderecoEntity {
     @Id
     @SequenceGenerator(name = "endereco_sequence", sequenceName = "endereco_sequence")
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
 
+    @Column(name="id")
     private int id;
+    @Column(name="rua")
     private String rua;
+    @Column(name="numero")
     private String numero;
+    @Column(name="bairro")
     private String bairro;
+    @Column(name="cidade")
     private String cep;
 
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -30,7 +37,6 @@ public class EnderecoEntity {
         this.bairro = bairro;
         this.cep = cep;
     }
-
     public EnderecoEntity(String rua, String numero, String bairro, String cep, PacienteEntity paciente){}
 
     public EnderecoEntity toEnderecoEntity() {

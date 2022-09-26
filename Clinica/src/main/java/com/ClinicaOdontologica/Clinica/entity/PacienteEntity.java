@@ -43,11 +43,6 @@ public class PacienteEntity {
     @OneToOne
     private ConsultaEntity consultaEntity;
 
-//    public void agendarConsulta(ConsultaEntity consultaEntity){
-//        this.consultaEntityList.add(consultaEntity);
-//}
-////Criando a classe agendar consulta
-
     public PacienteEntity(String nome, String sobrenome, String dataAlta, String username, String password) {
         this.nome = nome;
         this.sobrenome = sobrenome;
@@ -56,8 +51,6 @@ public class PacienteEntity {
         this.password = password;
     }
     public PacienteEntity(String nome, String sobrenome, String dataAlta, String username){}
-
-    //Criando o método dto para ocultar a senha
     public PacienteDto toPacienteDto(){
         return new PacienteDto(
                 this.id,

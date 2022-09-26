@@ -1,6 +1,10 @@
 package com.ClinicaOdontologica.Clinica.login;
 
 
+import com.ClinicaOdontologica.Clinica.entity.PacienteEntity;
+import lombok.Getter;
+import lombok.Setter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -8,6 +12,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.Collections;
+
+@Getter
+@Setter
 
 @Entity
 public class AppUser implements UserDetails {
@@ -33,52 +40,9 @@ public class AppUser implements UserDetails {
         this.appUserRoles = appUserRoles;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public void setPassword(String password) {
-        Password = password;
-    }
-
-    public AppUserRoles getAppUserRoles() {
-        return appUserRoles;
-    }
-
-    public void setAppUserRoles(AppUserRoles appUserRoles) {
-        this.appUserRoles = appUserRoles;
-    }
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        //utiliza esse método para pegar algumas regras do nosso usuário que não vemos
-        //ou seja, elas são passadas no processamento da aplicação
         SimpleGrantedAuthority grantedAuthority = new SimpleGrantedAuthority(appUserRoles.name());
-        //para pegar as regras advindas do nosso appUserRoles e assim eu verifico pelo nome da regra
 
         return Collections.singleton(grantedAuthority);
     }

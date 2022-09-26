@@ -23,15 +23,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
-    //escreve configure e aceita a primeira opção
-    //dentro dele vou montar as minhas regras
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable() // estou colocando isso pois os navegadores automaticamente abrem para
-                //fazer login e nesse caso estou desabilitando pois quero usar o formulario que o spring boot gera
+        http.csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/").permitAll()
-                .antMatchers("/user").hasRole("USER")//só permite quem tem a regra USER
+                .antMatchers("/user").hasRole("USER")
                 .antMatchers("/admin").hasRole("ADMIN")
                 .anyRequest()
                 .authenticated().and()
@@ -39,8 +36,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     }
 
-
-    //esse configure será um consultor de gerenciamento de autenticação
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.authenticationProvider(daoAuthenticationProvider()); //vou indicar de onde vem a autenticação

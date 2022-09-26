@@ -3,6 +3,7 @@ package com.ClinicaOdontologica.Clinica.controller;
 import com.ClinicaOdontologica.Clinica.controller.dto.PacienteDto;
 import com.ClinicaOdontologica.Clinica.controller.dto.PacienteForm;
 import com.ClinicaOdontologica.Clinica.entity.PacienteEntity;
+import com.ClinicaOdontologica.Clinica.repository.IDentistaRepository;
 import com.ClinicaOdontologica.Clinica.repository.IPacienteRepository;
 import com.ClinicaOdontologica.Clinica.service.PacienteService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +29,7 @@ public class PacienteController {
     IPacienteRepository pacienteRepository;
 
     @Autowired
-    IPacienteRepository repository;
+    IDentistaRepository dentistaRepository;
 
     @PostMapping("/salvar")
     @Transactional
@@ -45,11 +46,7 @@ public class PacienteController {
         return service.buscarTodos();
     }
 
-//    @GetMapping("/{id}")
-//    public PacienteEntity buscarPorId(@RequestParam("id") int id) throws  SQLException {
-//        return service.buscarPorId(id).isEmpty() ? new PacienteEntity(this.nome) : service.buscarPorId(id).get();
-
-    @PatchMapping
+    @PatchMapping("alterar/{id}")
     public ResponseEntity<PacienteEntity> alterar(@RequestBody PacienteEntity pacienteEntity) throws  SQLException {
         Optional<PacienteEntity> pacienteEntityOptional = service.buscarPorId(pacienteEntity.getId());
 
@@ -63,7 +60,7 @@ public class PacienteController {
         return ResponseEntity.ok(pacienteEntityOptional.get());
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
 
     public ResponseEntity excluir(@PathVariable Integer id) throws SQLException {
 

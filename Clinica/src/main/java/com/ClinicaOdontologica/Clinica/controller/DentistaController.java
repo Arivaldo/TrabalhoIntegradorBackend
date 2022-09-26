@@ -38,5 +38,30 @@ public class DentistaController {
         return ResponseEntity.ok(dentistaDto);
 
     }
+
+    @GetMapping("/buscar/{idPaciente}")
+    public ResponseEntity buscarDentista(@PathVariable("idPaciente") Integer idPaciente) {
+
+        PacienteEntity paciente = pacienteRepository.findById(idPaciente).orElseThrow(EntityNotFoundException::new);
+        DentistaEntity dentista = dentistaRepository.findById(paciente.getId()).orElseThrow(EntityNotFoundException::new);
+
+        DentistaDto dentistaDto = dentista.toDentistaDto();
+
+        return ResponseEntity.ok(dentistaDto);
+
+    }
+
+    @DeleteMapping("/deletar/{idPaciente}")
+    @Transactional
+    public ResponseEntity deletarDentista(@PathVariable("idPaciente") Integer idPaciente) {
+
+        PacienteEntity paciente = pacienteRepository.findById(idPaciente).orElseThrow(EntityNotFoundException::new);
+        DentistaEntity dentista = dentistaRepository.findById(paciente.getId()).orElseThrow(EntityNotFoundException::new);
+
+        dentistaRepository.delete(dentista);
+
+        return ResponseEntity.ok().build();
+
+    }
 }
 

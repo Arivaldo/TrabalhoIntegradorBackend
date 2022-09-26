@@ -49,25 +49,27 @@ public class EnderecoController {
         return ResponseEntity.ok(endereco);
     }
 
-    @PatchMapping
-    public ResponseEntity<EnderecoEntity> alterar(@RequestBody EnderecoEntity enderecoEntity) throws SQLException {
-        ResponseEntity responseEntity = null;
+    @PatchMapping("/alterar/{idPaciente}")
+    public ResponseEntity<EnderecoEntity> alterar(@PathVariable("idPaciente") Integer idPaciente,
+                                                    @RequestBody EnderecoForm enderecoForm) throws SQLException {
 
-        if(service.buscarPorId(enderecoEntity.getId()) == null){
-            responseEntity = new ResponseEntity(HttpStatus.NOT_FOUND);
+            PacienteEntity paciente = pacienteRepository.findById(idPaciente).orElseThrow(EntityNotFoundException::new);
+            EnderecoEntity endereco = enderecoForm.toEntity(paciente);
+
+            enderecoRepository.save(endereco);
+
+            return new ResponseEntity<>(endereco, HttpStatus.OK);
         }
-        return responseEntity;
-    }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity excluir(@PathVariable Integer id) throws SQLException {
+    @DeleteMapping("/deletar/{idPaciente}")
+    public ResponseEntity<EnderecoEntity> deletar(@PathVariable("idPaciente") Integer idPaciente) {
 
-        try {
-            service.excluir(id);
-            return ResponseEntity.ok("Endereco excluído com sucesso!");
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Endereco não encontrado!");
-        }
+        PacienteEntity paciente = pacienteRepository.findById(idPaciente).orElseThrow(EntityNotFoundException::new);
+        EnderecoEntity endereco = enderecoRepository.findById(idPaciente).orElseThrow(EntityNotFoundException::new);
+
+        enderecoRepository.delete(endereco);
+
+        return new ResponseEntity<>(endereco, HttpStatus.OK);
     }
 
 }
