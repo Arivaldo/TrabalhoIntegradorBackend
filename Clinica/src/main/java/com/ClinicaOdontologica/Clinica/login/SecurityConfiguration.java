@@ -23,16 +23,16 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/").permitAll()
-                .antMatchers("/user").hasRole("USER")
                 .antMatchers("/admin").hasRole("ADMIN")
-                .anyRequest()
-                .authenticated().and()
-                .formLogin();
+                .antMatchers("/user").hasRole("USER")
+                .antMatchers("/h2-console/**").permitAll()
+                .and().headers().frameOptions().disable()
+                .and().formLogin();
 
     }
 
@@ -42,7 +42,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     }
 
 
-    public DaoAuthenticationProvider daoAuthenticationProvider(){
+    public DaoAuthenticationProvider daoAuthenticationProvider() {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
         provider.setPasswordEncoder(bCryptPasswordEncoder);
         provider.setUserDetailsService(userService);

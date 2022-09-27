@@ -25,7 +25,7 @@ public class AppUser implements UserDetails {
     private String nome;
     private String username;
     private String email;
-    private String Password;
+    private String password;
     @Enumerated(EnumType.STRING)//indica que o enum tem um valor string
     private AppUserRoles appUserRoles;
 
@@ -36,7 +36,7 @@ public class AppUser implements UserDetails {
         this.nome = nome;
         this.username = username;
         this.email = email;
-        Password = password;
+        this.password = password;
         this.appUserRoles = appUserRoles;
     }
 
@@ -49,12 +49,12 @@ public class AppUser implements UserDetails {
 
     @Override
     public String getPassword() {
-        return null;
+        return this.password;
     }
 
     @Override
     public String getUsername() {
-        return null;
+        return this.username;
     }
 
     @Override
